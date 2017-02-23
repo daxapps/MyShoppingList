@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class ShoppingListTableVC: UITableViewController {
+class ShoppingListTableVC: UITableViewController, UITextFieldDelegate {
     
     var managedObjectContext: NSManagedObjectContext!
 
@@ -60,10 +60,21 @@ class ShoppingListTableVC: UITableViewController {
         textField.placeholder = "Enter Shopping List"
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height:0))
         textField.leftViewMode = .always
+        textField.delegate = self
         
         headerView.addSubview(textField)
         
         return headerView
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        let shoppingList = NSEntityDescription.insertNewObject(forEntityName: "ShoppingList", into: self.managedObjectContext) as! ShoppingList
+        shoppingList.title = textField.text
+        
+        try! self.managedObjectContext.save()
+        
+        return textField.resignFirstResponder()
     }
     
     override func didReceiveMemoryWarning() {
