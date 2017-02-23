@@ -9,7 +9,9 @@
 import UIKit
 import CoreData
 
-class ShoppingListTableVC: UITableViewController, UITextFieldDelegate {
+class ShoppingListTableVC: UITableViewController, UITextFieldDelegate, NSFetchedResultsControllerDelegate {
+    
+    var fetchResultsController: NSFetchedResultsController<ShoppingList>!
     
     var managedObjectContext: NSManagedObjectContext!
 
@@ -17,6 +19,26 @@ class ShoppingListTableVC: UITableViewController, UITextFieldDelegate {
         super.viewDidLoad()
 
         initializeCoreDataStack()
+        
+        populateShoppingLists()
+        
+    }
+    
+    private func populateShoppingLists() {
+        
+        let request = NSFetchRequest<ShoppingList>(entityName: "ShoppingList")
+        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+        
+        self.fetchResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        self.fetchResultsController.delegate = self
+        
+        try! self.fetchResultsController.performFetch()
+        
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        
+        self.tableView.insertRows(at: [newIndexPath!], with: .automatic)
     }
 
     func initializeCoreDataStack() {
@@ -90,8 +112,21 @@ class ShoppingListTableVC: UITableViewController, UITextFieldDelegate {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        
+        guard let sections = self.fetchResultsController.sections else {
+            return 0
+        }
+        return sections[section].numberOfObjects
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        
+        let shoppingList = self.fetchResultsController.object(at: indexPath)
+        cell.textLabel?.text = shoppingList.title
+        
+        return cell 
     }
 
     /*
