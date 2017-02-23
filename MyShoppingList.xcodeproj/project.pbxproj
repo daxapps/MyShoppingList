@@ -14,6 +14,7 @@
 		E0A5218C1E5F33DC00E674E5 /* MyShoppingListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A5218B1E5F33DC00E674E5 /* MyShoppingListTests.swift */; };
 		E0A521991E5F357A00E674E5 /* ShoppingListTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A521981E5F357A00E674E5 /* ShoppingListTableVC.swift */; };
 		E0A5219C1E5F377A00E674E5 /* MyGroceryDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E0A5219A1E5F377A00E674E5 /* MyGroceryDataModel.xcdatamodeld */; };
+		E0A5219E1E5F7B2400E674E5 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A5219D1E5F7B2400E674E5 /* CoreDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		E0A5218D1E5F33DC00E674E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E0A521981E5F357A00E674E5 /* ShoppingListTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingListTableVC.swift; sourceTree = "<group>"; };
 		E0A5219B1E5F377A00E674E5 /* MyGroceryDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyGroceryDataModel.xcdatamodel; sourceTree = "<group>"; };
+		E0A5219D1E5F7B2400E674E5 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 				E0A521821E5F33DC00E674E5 /* Info.plist */,
 				E0A521981E5F357A00E674E5 /* ShoppingListTableVC.swift */,
 				E0A5219A1E5F377A00E674E5 /* MyGroceryDataModel.xcdatamodeld */,
+				E0A5219D1E5F7B2400E674E5 /* CoreDataManager.swift */,
 			);
 			path = MyShoppingList;
 			sourceTree = "<group>";
@@ -206,6 +209,7 @@
 			files = (
 				E0A521771E5F33DB00E674E5 /* AppDelegate.swift in Sources */,
 				E0A521991E5F357A00E674E5 /* ShoppingListTableVC.swift in Sources */,
+				E0A5219E1E5F7B2400E674E5 /* CoreDataManager.swift in Sources */,
 				E0A5219C1E5F377A00E674E5 /* MyGroceryDataModel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

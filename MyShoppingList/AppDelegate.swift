@@ -15,6 +15,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        let coreDataManager = CoreDataManager()
+        coreDataManager.initializeCoreDataStack()   
+        
+        guard let nc = self.window?.rootViewController as? UINavigationController else {
+            fatalError("RootViewController not found")
+        }
+        
+        guard let shoppingListTVC = nc.viewControllers.first as? ShoppingListTableVC else {
+            fatalError("ShoppingListsTableVC not found")
+        }
+        
+        shoppingListTVC.managedObjectContext = coreDataManager.managedObjectContext
+        
         // Override point for customization after application launch.
         return true
     }
