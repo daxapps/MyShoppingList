@@ -38,7 +38,24 @@ class ShoppingListTableVC: UITableViewController, UITextFieldDelegate, NSFetched
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         
-        self.tableView.insertRows(at: [newIndexPath!], with: .automatic)
+        if type == .insert {
+            self.tableView.insertRows(at: [newIndexPath!], with: .automatic)
+        } else if type == .delete {
+            self.tableView.deleteRows(at: [indexPath!], with: .automatic)
+        }
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete {
+            let shoppingList = self.fetchResultsController.object(at: indexPath)
+            self.managedObjectContext.delete(shoppingList)
+            try! self.managedObjectContext.save()
+            
+        }
+        
+        self.tableView.isEditing = false
     }
 
     func initializeCoreDataStack() {
@@ -95,6 +112,7 @@ class ShoppingListTableVC: UITableViewController, UITextFieldDelegate, NSFetched
         shoppingList.title = textField.text
         
         try! self.managedObjectContext.save()
+        textField.text = ""
         
         return textField.resignFirstResponder()
     }
